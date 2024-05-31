@@ -1,0 +1,228 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Simulador de red social con node.js",
+      "version": "1.0.0",
+      "title": "RedSocialNode"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "user",
+        "description": "Operaciones sobre el usuario"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/user": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "get user token",
+          "description": "get user token",
+          "operationId": "getToken",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "usuario creado",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "The user's email.",
+                        "example": "user@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "The user's password.",
+                        "example": "password123"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+
+      "/shipment/status": {
+        "post": {
+          "tags": [
+            "shipment"
+          ],
+          "summary": "Obtener estado de envío",
+          "description": "Obtener estado de envío",
+          "operationId": "getShipmentStatus",
+          "produces": [
+            "application/json"
+          ],
+
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "usuario creado",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                    "courier": {
+                        "type": "string",
+                        "description": "courier",
+                        "example": "Estafeta"
+                    },
+                    "tracking": {
+                        "type": "string",
+                        "description": "tracking",
+                        "example": "7205897841655T00654417"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            }
+            }
+          ],
+
+          "responses": {
+            "default": {
+              "description": "Operación exitosa"
+            }
+          }
+        }
+      },
+    "/shipment/list": {
+      "get": {
+        "tags": [
+          "shipment"
+        ],
+        "summary": "Listar envíos",
+        "description": "Listar envíos que cumplen con ciertos criterios",
+        "operationId": "listShipments",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "where",
+            "description": "Criterios de búsqueda en formato JSON",
+            "required": false,
+            "type": "string",
+            "example": "{\"fulfillmentDate\": {\"[gte]\": \"2023-12-12T06:00:00.000Z\",\"[lte]\": \"2024-01-12T05:59:59.999Z\"},\"status\": \"Label created\",\"markedAs\": \"OPEN\"}"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Número máximo de resultados a devolver",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "example": 10
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Número de resultados a omitir antes de comenzar a devolver resultados",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "example": 0
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "description": "Campo por el que ordenar los resultados",
+            "required": false,
+            "type": "string",
+            "example": "fulfillmentDate"
+          },
+          {
+            "in": "query",
+            "name": "sortDir",
+            "description": "Dirección de ordenamiento (ASC o DESC)",
+            "required": false,
+            "type": "string",
+            "example": "ASC"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Operación exitosa"
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+        "flow": "implicit",
+        "scopes": {
+          "write:pets": "modify pets in your account",
+          "read:pets": "read your pets"
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "externalDocs": {
+      "description": "Find out more about Swagger",
+      "url": "http://swagger.io"
+    }
+    }
+}
