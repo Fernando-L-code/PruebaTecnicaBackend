@@ -26,7 +26,7 @@ const getListShipment = async (queryParams, token) => {
 const getStatusShipment = async (queryParams, token) => {
     try {
    
-        const { courier, tracking } = queryParams;
+        const { courier, tracking  } = queryParams;
 
         const response = await apiService.postData(config.api.endpoints.ShipmentsStatus,  {"shipments" :[{courier, tracking}]}, token);
 
